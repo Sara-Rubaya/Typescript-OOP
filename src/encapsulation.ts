@@ -15,11 +15,11 @@ class BankAccount {
     this._userBalance = this._userBalance + balance;
   }
 
-  // public method to access private method
-  public deposit(balance: number) {
+  public callHiddenMethod(balance: number) {
     this.addBalance(balance);
   }
 
+  // optional: safe way to see balance
   public getBalance() {
     return this._userBalance;
   }
@@ -27,21 +27,17 @@ class BankAccount {
 
 class StudentBankAccount extends BankAccount {
   test() {
-    // ❌ this._userBalance (private)
-    // ❌ this.addBalance (private)
+    // ❌ this._userBalance  // not accessible (private)
+    // ❌ this.addBalance()   // not accessible (private)
 
-    // ✅ correct way
-    this.deposit(100);
+    // ✅ correct way:
+    this.callHiddenMethod(50);
     console.log(this.getBalance());
   }
 }
 
 const mezbaBhaiAccount = new BankAccount(111, "Mezba", 20);
 
-// ❌ wrong
-// mezbaBhaiAccount.addBalance(100);
-
-mezbaBhaiAccount.deposit(100);
-mezbaBhaiAccount.deposit(50);
-
+// usage examples
+mezbaBhaiAccount.callHiddenMethod(30);
 console.log(mezbaBhaiAccount.getBalance());
